@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>网页</title>
+
+<script language="javascript" type="text/javascript">
+function judge(){
+	var choose=document.getElementById('sel').value;
+	var title = {{ title | safe }};
+	var address = {{ address | safe }};
+	var price = {{ price | safe }};
+	var img = {{ img | safe }};
+	var hostPic = {{ hostPic | safe }};
+	var hostName = {{ hostName | safe }};
+	var hostGender = {{ hostGender | safe }};
+
+	switch (choose) {
+		case 'title':
+//			document.getElementById('result').innerText = "Title";
+			show(title);
+			break;
+		case 'address':
+			show(address);
+			break;
+		case 'price':
+			show(price);
+			break;
+		case 'img':
+			show(img);
+			break;
+		case 'hostPic':
+			show(hostPic);
+			break;
+		case 'hostName':
+			show(hostName);
+			break;
+		case 'hostGender':
+			show(hostGender);
+			break;
+		default:
+			alert("Unknown Choosen! Please choose again!");
+	}
+}
+function show(variable){
+	var html = "";
+	for (var i = 0; i < variable.length; i++){
+		html += "<li>" + variable[i] + "</li>" + "<br />";
+	}
+	document.getElementById("result").innerHTML = html;
+}
+</script>
+
+	</head>
+	<body>
+		<br /><br />
+		<h2><p align="middle">热门城市短租房信息查询</p></h2>
+		<hr /><br />
+		<div align="middle">
+			<p>选择查找的项目：</p>
+			<form align="middle">
+				<select id="sel">
+					<option value="title">标题</option>
+					<option value="address">地址</option>
+					<option value="price">价格（每晚）</option>
+					<option value="img">房间照片</option>
+					<option value="hostPic">户主照片</option>
+					<option value="hostName">户主ID</option>
+					<option value="hostGender">户主性别</option>
+				</select>
+				<input type="button" value="确定" onclick="judge()" /><br />
+				<div id="result" align="left"></div>
+			</form>
+		</div>
+	</body>
+</html>
+
