@@ -1,5 +1,10 @@
 # 爬虫Web项目
+
 ## 项目地址：[spiderWebProject](https://github.com/nxmup/spiderWebProject)
+
+## 项目目前进度： [current.md](https://github.com/nxmup/spiderWebProject/blob/dev/current.md)
+
+## 项目细节：
 
 ### 1. 项目构思：
 > 写一个爬虫项目，爬取大量租房数据，利用Django将数据存放到网页上，在网页上添加数据分析等操作。
