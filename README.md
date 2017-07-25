@@ -15,7 +15,6 @@ A spider web project which snatch at rental information from [xiaozhu](http://ww
 > python-lxml  
 > python-django  
 > mongoengine(use pip to install)  
-> mongodb
 
 
 #### Usage: 
