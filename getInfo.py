@@ -5,37 +5,9 @@ import time
 import pymongo
 from bs4 import BeautifulSoup
 from getCityInfo import get_city_url
-# import to use get_info method to get room info from room url
-
-
-def get_info(room_url, count):
-    # get detail info of room and return a list
-    web_data = requests.get(room_url)
-    web_data.encoding = 'utf-8'
-    soup = BeautifulSoup(web_data.text, 'lxml')
-
-    title = soup.select('h4 em')[0].text
-    try:
-        address = soup.select('span.pr5')[0].text
-    except IndexError:
-        address = None
-    price = soup.select('div.day_l span')[0].text
-    img = soup.select('#curBigImage')[0].get('src')
-    hostPic = soup.select('div.member_pic a img')[0].get('src')
-    hostName = soup.select('h6 a.lorder_name')[0].text
-    hostGender = 'female' if soup.find_all('div', 'member_ico1') else 'male'
-
-    data = {
-        'title': title,
-        'address': address,
-        'price': price,
-        'img': img,
-        'hostPic': hostPic,
-        'hostName': hostName,
-        'hostGender': hostGender
-    }
-    print('get base info %d Done!' % (count))
-    return data
+# import to use get_city_info method to city url from main site
+from getRoomInfo import get_room_info
+# import to use get_room_info method to get detail room info
 
 
 def get_room_url_list(page_url, page_index):
@@ -53,7 +25,8 @@ def get_room_url_list(page_url, page_index):
 
 def get_page_info(startPage, endPage, baseURL, database):
     # get all rental information of a city a save into MongoDB
-    # through watching the urls of a city's rental info, there are 13 pages a city
+    # through watching the urls of a city's rental info,
+    # there are 13 pages of information for a city
     # just like city beijing, page: bj.xiaozhu.com
     # the first page is: http://bj.xiaozhu.com/search-duanzufang-p1-0/
     # and the last page is: http://bj.xiaozhu.com/search-duanzufang-p13-0/
@@ -67,7 +40,7 @@ def get_page_info(startPage, endPage, baseURL, database):
     for room_url in room_url_list:
         time.sleep(0.1)
         # sleep to avoid too frequent access
-        data = get_info(room_url, count)
+        data = get_room_info(room_url, count)
         database.insert_one(data)
         count += 1
     print('one page data have been inserted into database!')
