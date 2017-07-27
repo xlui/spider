@@ -2,6 +2,7 @@
 # use thread
 import threading
 import time
+import pymongo
 from getInfo import get_room_url_list
 from getRoomInfo import get_room_info
 
@@ -15,12 +16,17 @@ class MyThread(threading.Thread):
 
     def run(self):
         print("start thread: {}".format(self.threadID))
-        print_info(self.threadID)
+        room_data_list = print_info(self.threadID)
+        threadLock.acquire()
+        for room_data in room_data_list:
+            table.insert_one(room_data)
+        threadLock.release()
         print("exit thread: {}".format(self.threadID))
 
 
 def print_info(threadID):
     count = 1
+    room_data_list = []
     separate = urlCount // threadCount
     # fix bug here!
     # 24 / 3 = 8.0
@@ -31,14 +37,21 @@ def print_info(threadID):
 
     for room_url in sub_list:
         time.sleep(1)
-        room_data = get_room_info(room_url, count + begin)
-        print(room_data)
+        room_data_list.append(get_room_info(room_url, count + begin))
+        # print(room_data)
         count += 1
 
+    return room_data_list
 
-threadCount = 3
+
+threadCount = 24
+threadLock = threading.Lock()
 threads = []
 url = "http://bj.xiaozhu.com/search-duanzufang-p1-0/"
+client = pymongo.MongoClient('localhost', 27017)
+db = client['db_test']
+table = db['tb_test']
+
 room_url_list = get_room_url_list(url, 1)
 urlCount = len(room_url_list)
 start_time = time.time()
