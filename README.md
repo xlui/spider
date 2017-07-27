@@ -1,6 +1,6 @@
 # Spider Web Project
 
-A spider web project which snatch at rental information from [xiaozhu](http://www.xiaozhu.com), save into MonogoDB, and show them at a Django based web page.
+A spider web project which get rental information from website [xiaozhu](http://www.xiaozhu.com), save into MonogoDB, and show them at a Django based web page.
 
 ### current plan: [current.md](https://github.com/nxmup/spiderWebProject/blob/dev/current.md)
 
@@ -31,5 +31,5 @@ $ cd webPage
 $ python manage.py runserver
 ```
 
-open you browser, and visit [127.0.0.1:8000](127.0.0.1:8000), you will see data from MongoDB in a simple web page.  
+open you browser, and visit [127.0.0.1:8000](http://127.0.0.1:8000), you will see a simple Django based web page shows data from MongoDB.  
 Also, you can choose different information to show use the button.

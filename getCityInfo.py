@@ -8,8 +8,10 @@ from bs4 import BeautifulSoup
 def get_city_url(url):
     cities = []
     cityName = []
-
-    web_data = requests.get(url)
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)',
+    }
+    web_data = requests.get(url, headers=headers)
     web_data.encoding = 'utf-8'
     soup = BeautifulSoup(web_data.text, 'lxml')
 

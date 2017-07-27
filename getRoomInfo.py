@@ -1,12 +1,17 @@
 #!/usr/bin/env python
 # coding: utf-8
+# get detail information of rooms from url, also will output the
+# number of data
 import requests
 from bs4 import BeautifulSoup
 
 
 def get_room_info(room_url, count):
     # get detail info of room and return a list
-    web_data = requests.get(room_url)
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)',
+    }
+    web_data = requests.get(room_url, headers=headers)
     web_data.encoding = 'utf-8'
     soup = BeautifulSoup(web_data.text, 'lxml')
 
