@@ -2,6 +2,10 @@
 # use thread
 import threading
 import time
+import sys
+
+sys.path.append('../')
+
 from getInfo import get_room_url_list
 from getRoomInfo import get_room_info
 
