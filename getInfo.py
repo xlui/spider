@@ -12,7 +12,7 @@ from getRoomInfo import get_room_info
 
 
 # global variables
-thread_count = 4
+thread_count = 100
 client = pymongo.MongoClient('localhost', 27017)
 xiaozhu = client['xiaozhu']
 xiaozhu.drop_collection('Info')
@@ -21,6 +21,7 @@ info = xiaozhu['Info']
 
 class MyThread(threading.Thread):
     """docstring for MyThread"""
+
     def __init__(self, sub_room_url_list, thread_id, begin):
         super(MyThread, self).__init__()
         self.sub_room_url_list = sub_room_url_list
@@ -31,7 +32,7 @@ class MyThread(threading.Thread):
         print('start thread:', self.thread_id, time.ctime())
         save_data(self.sub_room_url_list, self.begin)
         print('stop thread:', self.thread_id, time.ctime())
-        
+
 
 def save_data(sub_room_url_list, begin):
     count = 1
@@ -47,17 +48,17 @@ def call_thread(room_url_list):
     url_count = len(room_url_list)
     separate = url_count // thread_count
 
-    if url_count == 0:
-        print('Cannot access to url!')
-        exit(1)
-    elif url_count % thread_count != 0:
-        print('Invalid thread number!')
-        exit(2)
+    # if url_count == 0:
+    #     print('Cannot access to url!')
+    #     exit(1)
+    # elif url_count % thread_count != 0:
+    #     print('Invalid thread number!')
+    #     exit(2)
 
     for index in range(thread_count):
         begin = index * separate
         end = index * separate + separate
-        sub_list = room_url_list[begin:end]        
+        sub_list = room_url_list[begin:end]
         thread_tmp = MyThread(sub_list, index, begin)
         thread_tmp.start()
         threads.append(thread_tmp)
@@ -99,8 +100,6 @@ def get_page_info(startPage, endPage, baseURL):
     call_thread(room_url_list)
 
     print('one page data have been inserted into database!')
-
-
 
 
 def main():
