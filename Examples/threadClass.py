@@ -16,7 +16,7 @@ class MyThread(threading.Thread):
 
     def run(self):
         """
-        must in class
+        must have this func in class
 
         :return: none
         """
