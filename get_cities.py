@@ -32,8 +32,8 @@ class GetCities(object):
 
                 self.__cities.append(city_url)
                 city_list.append({
-                    'name':city_name,
-                    'city':city_url
+                    'name': city_name,
+                    'city': city_url
                 })
         return city_list
 
@@ -42,7 +42,8 @@ class GetCities(object):
         with open('conf/cities.json', 'w', encoding='utf-8') as file:
             json.dump(city_list, file)
 
-    def read(self):
+    @staticmethod
+    def read():
         with open('conf/cities.json', 'r', encoding='utf-8') as file:
             data_list = json.load(file)
         print('The cities: ')
