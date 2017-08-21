@@ -1,9 +1,14 @@
 # Spider Web Project
 
+<br>
+
 <blockquote class="blockquote-center">
-Open branch PyCharm <br>
-Use PyCharm to reorganize code.
+branch dev <br>
+Developing new Features.
+The update may be desultory, due to school studies.
 </blockquote>
+
+<br>
 
 A spider web project which get rental information from website [xiaozhu](http://www.xiaozhu.com), save into MonogoDB, and show them at a Django based web page.
 

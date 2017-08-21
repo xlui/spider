@@ -1,6 +1,7 @@
 #### right now plan:
-1. add Multithreading to getInfo.py
-2. add resume broken downloads
-3. save data to local in JSON or other formats, and use local data in Django section 
-4. separate defaine of functions and usage of functions in getInfo.py
-5. enrich the web page
+1. reorganize and rewrite project
+2. use multithreading to accelerate
+3. save data as a local JSON format file instead of database
+4. Django use local JSON data instead of reading data from database
+5. resume from break point while getting room data
+6. enrich the web page
