@@ -4,7 +4,7 @@
 import json
 import requests
 from bs4 import BeautifulSoup
-from conf.config import root_url, headers
+from conf.config import root_url, headers, proxies
 
 
 class GetCities(object):
@@ -22,7 +22,7 @@ class GetCities(object):
 
         :return: list of cities which provide rental room
         """
-        web_data = requests.get(self.__root_url, headers)
+        web_data = requests.get(self.__root_url, headers=headers, proxies=proxies)
         # headers is baidu spider header, to avoid being blocked
         web_data.encoding = 'utf-8'
         soup = BeautifulSoup(web_data.text, 'lxml')
@@ -45,7 +45,7 @@ class GetCities(object):
                 self.__cities.append(city_url)
                 city_list.append({
                     'name': city_name,
-                    'city': city_url
+                    'url': city_url
                 })
         # return a list of dicts
         return city_list
@@ -62,8 +62,8 @@ class GetCities(object):
         print('Total: {}'.format(len(city_list)))
 
     def save(self):
-        """
-        Save city data in JSON format to conf/cities.json
+        """Save city data in JSON format to conf/cities.json
+
         :return: none
         """
         city_list = self.__get_cities()
@@ -71,20 +71,24 @@ class GetCities(object):
             json.dump(city_list, file)
 
     @staticmethod
-    def read():
-        """
-        Read JSON format data from conf/cities.json and print
-        :return: none
+    def get():
+        """get JSON format data from conf/cities.json and return
+
+        :return: city url data list
         """
         with open('conf/cities.json', 'r', encoding='utf-8') as file:
             data_list = json.load(file)
-        print('The cities: ')
-        for data in data_list:
-            print(data)
-        print('Total: {}'.format(len(data_list)))
+        # print('The cities: ')
+        # for data in data_list:
+        #     print(data)
+        # print('Total: {}'.format(len(data_list)))
+        return data_list
 
 if __name__ == '__main__':
     get_cities = GetCities()
     get_cities.save()
-    get_cities.read()
+    cities = get_cities.get()
+    for city in cities:
+        print(city)
+    print('Total: {}'.format(len(cities)))
     # get_cities.print_()
