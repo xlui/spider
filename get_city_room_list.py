@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding:utf-8
 # use thread to get a city's room url list, provide get() method to return result list
+from time import sleep
 import requests
 from bs4 import BeautifulSoup
 import threading
@@ -36,9 +37,9 @@ class GetCityRoomUrlList(object):
 
 def run(thread_id, page_base_url):
     page_url = page_base_url.format(thread_id)
-    time_to_sleep = randint(0, 4)
-    sleep(time_to_sleep)
+    sleep(randint(0, 10))
     web_data = requests.get(page_url, headers=headers, proxies=proxies)
+    sleep(randint(0, 10))
     web_data.encoding = 'utf-8'
     soup = BeautifulSoup(web_data.text, 'lxml')
     room_url_list_label = soup.select('div.result_btm_con.lodgeunitname')
