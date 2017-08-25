@@ -39,6 +39,7 @@ def get_list_and_save(city_):
     for thread in threads:
         thread.join()
 
+    database.disconnect()
     print('Total: {}'.format(len(room_url_list)))
     print('All room url of city', city_name, 'has been saved into database!')
 
