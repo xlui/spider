@@ -34,6 +34,10 @@ class Save(object):
     def save_data(self):
         pass
 
+    def disconnect(self):
+        self.__client.close()
+
+
 if __name__ == '__main__':
     # A example to use multithreading to save data into mongodb
     save = Save()
