@@ -3,7 +3,7 @@
 import threading
 
 import pymongo
-from conf.config import database, room_url_collection, room_data_collection
+from Config.config import database, room_url_collection, room_data_collection
 
 
 class Save(object):

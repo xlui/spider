@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 import threading
 from random import randint
 from time import sleep
-from conf.config import headers, proxies
+from Config.config import headers, proxies
 
 
 class GetCityRoomUrlList(object):

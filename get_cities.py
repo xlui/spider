@@ -4,7 +4,7 @@
 import json
 import requests
 from bs4 import BeautifulSoup
-from conf.config import root_url, headers, proxies
+from Config.config import root_url, headers, proxies
 
 
 class GetCities(object):
@@ -62,21 +62,21 @@ class GetCities(object):
         print('Total: {}'.format(len(city_list)))
 
     def save(self):
-        """Save city data in JSON format to conf/cities.json
+        """Save city data in JSON format to Config/cities.json
 
         :return: none
         """
         city_list = self.__get_cities()
-        with open('conf/cities.json', 'w', encoding='utf-8') as file:
+        with open('Config/cities.json', 'w', encoding='utf-8') as file:
             json.dump(city_list, file)
 
     @staticmethod
     def get():
-        """get JSON format data from conf/cities.json and return
+        """get JSON format data from Config/cities.json and return
 
         :return: city url data list
         """
-        with open('conf/cities.json', 'r', encoding='utf-8') as file:
+        with open('Config/cities.json', 'r', encoding='utf-8') as file:
             data_list = json.load(file)
         # print('The cities: ')
         # for data in data_list:

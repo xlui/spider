@@ -4,7 +4,7 @@
 import requests
 import sys
 sys.path.append('../')
-from conf.config import headers, proxies
+from Config.config import headers, proxies
 
 
 url = 'http://bj.xiaozhu.com/fangzi/6937392816.html'

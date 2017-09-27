@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding:utf-8
 import pymongo
-from conf.config import database, room_data_collection
+from Config.config import database, room_data_collection
 
 client = pymongo.MongoClient('localhost', 27017)
 # database client

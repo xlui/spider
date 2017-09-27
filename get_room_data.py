@@ -3,7 +3,7 @@
 # module to get detail data from room link
 import requests
 from bs4 import BeautifulSoup
-from conf.config import headers
+from Config.config import headers
 
 
 class GetRoomData(object):
