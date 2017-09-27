@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
+# 结合多线程与多进程
 from multiprocessing import Pool
 import threading
 import os
-import time
-import random
 
 
 def print_current_thread(process_name):
+    # 线程函数
     print('In process {}, current thread is: '.format(process_name), threading.current_thread())
 
 

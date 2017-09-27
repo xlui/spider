@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding:utf-8
-# the result shows that multiprocessing can successfully insert data into db
-# and multithreading cannot
+# 通过 多进程/多线程 向数据库写入数据
+# 多进程可以成功写入，多线程写入失败。
 import threading
 from multiprocessing import Pool
 import os
@@ -33,6 +33,8 @@ def data_process(count):
 #     threads.append(thread)
 # for thread in threads:
 #     thread.join()
+
+
 pool_count_total = 24
 pool = Pool(pool_count_total)
 for pool_count in range(pool_count_total):

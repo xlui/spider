@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from db.models import Information
+from .models import Information
+
 
 def index(request):
     title = Information.objects[0].title

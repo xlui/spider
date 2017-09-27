@@ -1,43 +1,31 @@
 #!/usr/bin/env python
 # coding:utf-8
+# 以类的方式使用多线程
 import threading
 import time
 
 
 class MyThread(threading.Thread):
-    """
-    Class way to call multithreading
-    """
-    def __init__(self, threadID, name, counter):
+    def __init__(self, thread_id, name, delay):
         threading.Thread.__init__(self)
-        self.threadID = threadID
+        self.thread_id = thread_id
         self.name = name
-        self.counter = counter
+        self.delay = delay
 
     def run(self):
-        """
-        must have this func in class
-
-        :return: none
-        """
+        # 必须重载 Thread 类的该方法
         print("start thread:", self.name)
-        print_time(self.name, self.counter, 5)
+        print_time(self.name, self.delay, 5)
         print("exit thread: " + self.name)
 
 
 def print_time(thread_name, delay, counter):
-    """
-    play current time COUNTER times, and sleep DELAY during each loop
-
-    :param thread_name: the name of this thread
-    :param delay: sleep between each loop
-    :param counter: count of print
-    :return: none
-    """
+    # 输入当前时间 counter 次，并且每次间隔 delay 秒
     while counter:
         time.sleep(delay)
         print("%s %s" % (thread_name, time.ctime()))
         counter -= 1
+
 
 if __name__ == '__main__':
     thread1 = MyThread(1, "Thread-1", 1)

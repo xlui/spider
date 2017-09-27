@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
-# Asynchronous Spider Example
+# 异步爬虫示例
 from datetime import timedelta
 from tornado import httpclient, gen, ioloop, queues
 
 
 class AsySpider(object):
-    """A simple class of asynchronous spider."""
     def __init__(self, urls, concurrency=10, **kwargs):
         urls.reverse()
         self.urls = urls
@@ -97,6 +96,7 @@ def main():
         urls.append('https://www.baidu.com?page={}'.format(page))
     s = MySpider(urls)
     s.run()
+
 
 if __name__ == '__main__':
     main()

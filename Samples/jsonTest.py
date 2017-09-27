@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding:utf-8
-# Try to usr json to save and read data
+# 以 Json 的格式保存数据；从 Json 文件中读取数据
 import json
 
 data = [

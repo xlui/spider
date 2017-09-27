@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding:utf-8
+# 使用代理的实例
 import requests
-import os
 import sys
 sys.path.append('../')
 from conf.config import headers, proxies

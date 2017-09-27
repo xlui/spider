@@ -2,6 +2,7 @@ from django.db import models
 from mongoengine import *
 connect('xiaozhu')
 
+
 class Information(Document):
     _id = StringField()
     title = StringField()
@@ -14,5 +15,7 @@ class Information(Document):
 
     meta = {'collection': 'Info'}
 
-#for var in Information.objects.all():
-#    print(var)
+
+if __name__ == '__main__':
+    for var in Information.objects.all():
+        print(var)

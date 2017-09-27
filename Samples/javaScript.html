@@ -3,22 +3,22 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<script type="text/javascript">
 	function rate(){
-		x = document.getElementById("socre").value;
+		x = document.getElementById("score").value;
 		if(x>0)
 			y = "大于0";
 		else
 			y = "小于等于0";
-		document.getElementById("outnews").innerText = y;
+		document.getElementById("out_put").innerText = y;
 	}
 	</script>
   </head>
 
   <body>
     <form>
-      <input type = "text" id = "socre" value="0" size="5"/>
+      <input type = "text" id = "score" value="0" size="5"/>
 	  <input type="button" value="显示评语" onclick="rate()"/>
 	  <br />
-	  评语：<span id = "outnews"/>
+	  评语：<span id = "out_put" ></span>
 	</form>
   </body>
 </html>

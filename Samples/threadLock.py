@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 # coding:utf-8
-# Example to show how to use thread lock
+# 使用线程锁的实例
 import threading
+from time import time
+from random import seed, randint
 
 lock = threading.Lock()
 balance = 0
+total_range = 100000
 
 
 def change(n):
@@ -14,20 +17,12 @@ def change(n):
 
 
 def run_thread1(number):
-    """
-    Do not use thread lock, the result of balance is unpredictable
-    :param n: number to add and sub
-    :return: none
-    """
-    for i in range(100000):
-        change(number)
+    # 不使用线程锁
+    [change(number) for _ in range(total_range)]
+
 
 def run_thread2(number):
-    """
-    Use thread lock, the result of balance is 0
-    :param number: number to add and sub
-    :return: none
-    """
+    # 使用线程锁
     for i in range(100000):
         lock.acquire()
         try:
@@ -37,10 +32,16 @@ def run_thread2(number):
 
 
 target = run_thread1
-thread1 = threading.Thread(target=target, args=(5, ))
-thread2 = threading.Thread(target=target, args=(8, ))
-thread1.start()
-thread2.start()
-thread1.join()
-thread2.join()
-print(balance)
+# 将 target 的值设置为不同的函数来显示两种情况下的结果
+thread_count = 16
+threads = []
+seed(time())
+for i in range(thread_count):
+    thread = threading.Thread(target=target, args=(randint(1, 10), ))
+    thread.start()
+    threads.append(thread)
+for thread in threads:
+    thread.join()
+
+print('Balance should be 0.')
+print('Balance:', balance)
