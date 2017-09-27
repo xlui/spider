@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding:utf-8
-# Examples for file operations
+# 操作文件的例子
 
 urls = [
     'www.baidu.com',

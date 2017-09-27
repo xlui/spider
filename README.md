@@ -14,7 +14,7 @@ A spider web project which get rental information from website [xiaozhu](http://
 
 <br>
 
-### current plan: [current.md](https://github.com/nxmup/spiderWebProject/blob/pycharm/current.md)
+### current plan: [current.md](https://github.com/nxmup/spiderWebProject/blob/dev/current.md)
 
 <br>
 
