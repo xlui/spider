@@ -1,6 +1,7 @@
 from django.db import models
-from mongoengine import *
+from mongoengine import connect, Document, StringField
 connect('xiaozhu')
+
 
 class Information(Document):
     _id = StringField()
@@ -12,6 +13,8 @@ class Information(Document):
     hostName = StringField()
     hostGender = StringField()
 
-    meta = {'collection': 'Info_new'}
+    meta = {'collection': 'room_data'}
 
-print(Information.objects.count())
+
+if __name__ == '__main__':
+    print(Information.objects.count())

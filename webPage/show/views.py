@@ -2,7 +2,9 @@ from django.shortcuts import render
 from show.models import Information
 from bson.json_util import dumps
 
+
 def index(request):
+    # simply render all data
     _id, title, address, price, img, hostPic, hostName, hostGender = [], [], [], [], [], [], [], []
     count = 0
     for var in Information.objects:
@@ -16,7 +18,8 @@ def index(request):
         hostName.append(var.hostPic)
         hostGender.append(var.hostGender)
         count += 1
-    return render(request, 'index.html', {'_id': dumps(_id),
+    return render(request, 'index.html', {
+        '_id': dumps(_id),
         'title': dumps(title),
         'address': dumps(address),
         'price': dumps(price),
