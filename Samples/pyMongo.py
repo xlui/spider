@@ -1,20 +1,31 @@
 #!/usr/bin/env python
 # coding:utf-8
+from time import time
 import pymongo
-from Config.config import database, room_data_collection
+from Config.config import database, sample_collection
 
 client = pymongo.MongoClient('localhost', 27017)
 # database client
 xiaozhu = client[database]
-# use database or create database
-xiaozhu.drop_collection(room_data_collection)
+# connect to database or create database
+
+# xiaozhu.drop_collection(sample_collection)
 # remove collection
-info = xiaozhu[room_data_collection]
+
+collection = xiaozhu[sample_collection]
 # create collection
 
 data = {
-    'name':'test1',
-    'value':'www.beijing.com',
+    'name': 'test1',
+    'value': 'www.beijing.com',
+    'time': time()
 }
 
-info.insert_one(data)
+# insert
+collection.insert_one(data)
+
+# output
+print(list(collection.find()))
+
+# print(collection.insert_one(data).inserted_id)
+# print(collection.find_one())

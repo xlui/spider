@@ -1,0 +1,120 @@
+{
+	"_id" : ObjectId("59ccc047565b27130612e608"),
+	"city_name" : "北京短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc06f565b27130612e736"),
+	"city_name" : "上海短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc093565b27130612e864"),
+	"city_name" : "南京短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc0bb565b27130612e992"),
+	"city_name" : "成都短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc0dc565b27130612eac0"),
+	"city_name" : "广州短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc0ff565b27130612ebee"),
+	"city_name" : "重庆短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc124565b27130612ed1c"),
+	"city_name" : "武汉短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc148565b27130612ee4a"),
+	"city_name" : "大连短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc169565b27130612ef78"),
+	"city_name" : "三亚短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc190565b27130612f0a6"),
+	"city_name" : "丽江短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc1b7565b27130612f1d4"),
+	"city_name" : "天津短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc1dd565b27130612f28e"),
+	"city_name" : "香港短租房",
+	"total_urls" : NumberInt("184")
+},
+{
+	"_id" : ObjectId("59ccc202565b27130612f3bc"),
+	"city_name" : "长沙短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc229565b27130612f4ea"),
+	"city_name" : "无锡短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc24d565b27130612f618"),
+	"city_name" : "昆明短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc26c565b27130612f746"),
+	"city_name" : "济南短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc291565b27130612f874"),
+	"city_name" : "厦门短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc2b0565b27130612f9a2"),
+	"city_name" : "青岛短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc2d3565b27130612fad0"),
+	"city_name" : "郑州短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc2f9565b27130612fbfe"),
+	"city_name" : "西安短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc320565b27130612fd2c"),
+	"city_name" : "杭州短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc344565b27130612fe5a"),
+	"city_name" : "深圳短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc368565b27130612ff88"),
+	"city_name" : "沈阳短租房",
+	"total_urls" : NumberInt("300")
+},
+{
+	"_id" : ObjectId("59ccc38f565b2713061300b6"),
+	"city_name" : "苏州短租房",
+	"total_urls" : NumberInt("300")
+},

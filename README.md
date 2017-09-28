@@ -10,7 +10,7 @@ The update may be desultory, due to school studies.<br>
 
 <br>
 
-A spider web project which get rental information from website [xiaozhu](http://www.xiaozhu.com), save into MonogoDB, and show them at a Django based web page.
+A spider web project which get rental information from website [xiaozhu](http://www.xiaozhu.com), save those data into MonogoDB, and show them at a Django based web page.
 
 <br>
 
@@ -18,16 +18,6 @@ A spider web project which get rental information from website [xiaozhu](http://
 
 <br>
 
-#### Dependencies:
-> Mongo Database(use package manager to install)
->
-> python-requests  
-> python-pymongo  
-> python-beautifulesoup4  
-> python-lxml  
-> python-django  
-> mongoengine(use pip to install)  
 
-
-#### Usage:
+## Usage:
 > Not complete, will not write this now.
