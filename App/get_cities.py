@@ -46,11 +46,11 @@ class GetCities(object):
         # and we just need to care the second and the third data
 
         city_list.extend([{
-            'name': eval(dealt_array_cities[i][1]),
+            'city': eval(dealt_array_cities[i][1]),
             'url': 'http://{}.xiaozhu.com'.format(eval(dealt_array_cities[i][2])),
         } for i in range(len(dealt_array_cities))])
         city_list.extend([{
-            'name': eval(dealt_array_broad_cities[i][1]),
+            'city': eval(dealt_array_broad_cities[i][1]),
             'url': 'http://{}.xiaozhu.com'.format(eval(dealt_array_broad_cities[i][2])),
         } for i in range(len(dealt_array_broad_cities))])
 
@@ -67,30 +67,10 @@ class GetCities(object):
         if to_db:
             from App.mongodb import MongoDB
             from contextlib import closing
-            from threading import Thread
+            collection = 'Cities'
             with closing(MongoDB()) as mongodb:
-                collection = 'Cities'
-                mongodb.drop(collection=collection)
-                thread_count = 20
-                total_count = len(city_list)
-                separate = total_count // thread_count
-                threads = []
-
-                def save_to_db(from_, to_):
-                    sub_list = city_list[from_: to_]
-                    for item in sub_list:
-                        mongodb.save(collection, **item)
-
-                for index in range(thread_count):
-                    if index == (thread_count - 1):
-                        thread = Thread(target=save_to_db, args=(index * separate, total_count))
-                    else:
-                        thread = Thread(target=save_to_db, args=(index * separate, index * separate + separate))
-                    thread.start()
-                    threads.append(thread)
-                [thread.join() for thread in threads]
-
-                print('Successfully saved data into MongoDB')
+                mongodb.drop(collection)
+                [mongodb.save(collection, **city) for city in city_list]
 
     def get(self):
         """get JSON format data from Config/cities.json. If get None, request those data from the official website.
