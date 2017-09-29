@@ -4,8 +4,11 @@ import json
 
 # dir name and json path
 dir_name = os.path.dirname(os.path.abspath(__file__))
-city_json_file = os.path.join(dir_name, 'cities.json')
-proxies_json_file = os.path.join(dir_name, 'proxies.json')
+data_dir_name = os.path.join(os.path.split(dir_name)[0], 'Data')
+# print(data_dir_name)
+city_json_file = os.path.join(data_dir_name, 'cities.json')
+proxies_json_file = os.path.join(data_dir_name, 'proxies.json')
+# print(city_json_file, proxies_json_file)
 
 
 # url
