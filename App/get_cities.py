@@ -3,14 +3,13 @@
 # module to get cities that provided by www.xiaozhu.com which provide rental houses.
 import json
 import requests
-from bs4 import BeautifulSoup
 from random import randint
-from Config.config import root_url, city_json_file, headers, headers_length, proxies, proxies_length
+from Config.config import city_json_file, headers, headers_length, proxies, proxies_length
 
 
 class GetCities(object):
-    """Class GetCities: to get cities from http://www.xiaozhu.com"""
-    def __init__(self):
+    """Class GetCities: to get cities from a script link"""
+    def __init__(self, root_url='http://jci.xiaozhustatic1.com/e17092601/xzjs?k=Front_Index&httphost=www.xiaozhu.com'):
         super(GetCities, self).__init__()
         self.__root_url = root_url
 
@@ -19,32 +18,42 @@ class GetCities(object):
 
         :return: list of cities which provide rental room
         """
+        city_list = []
+
+        str_start_city = ['var', 'citys=new', 'Array()']
+        str_stop_city = ['var', 'abroadcitys=new', 'Array()']
+        str_start_abroad_cities = ['var', 'abroadcitys=new', 'Array()']
+        str_stop_abroad_cities = ['abroadcitys[50]=new', "Array('huaxin','华欣','huaxin','huaxin','4','prachuap','班武里府','','',2741,1,'+7:00')"]
+
         web_data = requests.get(self.__root_url,
                                 headers=headers[randint(0, headers_length - 1)],
                                 proxies=proxies[randint(0, proxies_length - 1)])
         # headers is baidu spider header, to avoid being blocked.
         web_data.encoding = 'utf-8'
-        soup = BeautifulSoup(web_data.text, 'lxml')
-        label_a_list = soup.select('div.foot_v2 > dl.link_dl > dd > a')
-        # get city list tags.
-        # and because of the matching rule, the list will also contains ad links.
+        dealt_texts = web_data.text.split(';')
+        lines = [dealt_text.split() for dealt_text in dealt_texts]
 
-        city_list = []
-        for index in range(len(label_a_list)):
-            # print('type:', type(label_a_list[index]))
-            # type: <class 'bs4.element.Tag'>
-            url = label_a_list[index].get('href')
-            # get url from Tag `a`.
+        str_cities = lines[lines.index(str_start_city) + 1: lines.index(str_stop_city)]
+        str_broad_cities = lines[lines.index(str_start_abroad_cities) + 1: lines.index(str_stop_abroad_cities) + 1]
+        # now data format:
+        # str_cities[0] = ['citys[0]=new', "Array('bj','北京','beijing','bj','7839','beijing','北京','','',12,0)"]
 
-            if 'xiaozhu' in url:
-                # this blocks the ad url.
-                city_name = label_a_list[index].text
+        dealt_array_cities = [str_cities[i][1].split(',') for i in range(len(str_cities))]
+        dealt_array_broad_cities = [str_broad_cities[i][1].split(',') for i in range(len(str_broad_cities))]
+        # now format:
+        # dealt_array_cities[0] = ["Array('bj'", "'北京'", "'beijing'", "'bj'", "'7839'",
+        #                       "'beijing'", "'北京'", "''", "''", '12', '0)']
+        # and we just need to care the second and the third data
 
-                city_list.append({
-                    'name': city_name,
-                    'url': url
-                })
-        # return a list of dicts
+        city_list.extend([{
+            'name': eval(dealt_array_cities[i][1]),
+            'url': 'http://{}.xiaozhu.com'.format(eval(dealt_array_cities[i][2])),
+        } for i in range(len(dealt_array_cities))])
+        city_list.extend([{
+            'name': eval(dealt_array_broad_cities[i][1]),
+            'url': 'http://{}.xiaozhu.com'.format(eval(dealt_array_broad_cities[i][2])),
+        } for i in range(len(dealt_array_broad_cities))])
+
         return city_list
 
     def save(self):
