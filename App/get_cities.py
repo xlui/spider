@@ -56,7 +56,7 @@ class GetCities(object):
 
         return city_list
 
-    def save(self):
+    def save(self, to_db=False):
         """Save city data in JSON format to Config/cities.json
 
         :return: none
@@ -64,6 +64,33 @@ class GetCities(object):
         city_list = self.__get_cities()
         with open(city_json_file, 'w', encoding='utf-8') as file:
             json.dump(city_list, file)
+        if to_db:
+            from App.mongodb import MongoDB
+            from contextlib import closing
+            from threading import Thread
+            with closing(MongoDB()) as mongodb:
+                collection = 'Cities'
+                mongodb.drop(collection=collection)
+                thread_count = 20
+                total_count = len(city_list)
+                separate = total_count // thread_count
+                threads = []
+
+                def save_to_db(from_, to_):
+                    sub_list = city_list[from_: to_]
+                    for item in sub_list:
+                        mongodb.save(collection, **item)
+
+                for index in range(thread_count):
+                    if index == (thread_count - 1):
+                        thread = Thread(target=save_to_db, args=(index * separate, total_count))
+                    else:
+                        thread = Thread(target=save_to_db, args=(index * separate, index * separate + separate))
+                    thread.start()
+                    threads.append(thread)
+                [thread.join() for thread in threads]
+
+                print('Successfully saved data into MongoDB')
 
     def get(self):
         """get JSON format data from Config/cities.json. If get None, request those data from the official website.
@@ -80,7 +107,7 @@ class GetCities(object):
 
 if __name__ == '__main__':
     get_cities = GetCities()
-    get_cities.save()
+    get_cities.save(to_db=True)
     cities = get_cities.get()
     for city in cities:
         print(city)
