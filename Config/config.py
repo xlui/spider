@@ -27,9 +27,9 @@ headers = [
 ]
 headers_length = len(headers)
 # proxy
-with open(proxies_json_file, 'r') as file:
+with open(proxies_json_file, 'r', encoding='utf-8') as file:
     proxies = json.load(file)
-proxies = [{"http":"http://{}".format(proxy)} for proxy in proxies]
+# proxies = [{"http":"http://{}".format(proxy)} for proxy in proxies]
 proxies_length = len(proxies)
 # print(proxies)
 
@@ -38,6 +38,8 @@ proxies_length = len(proxies)
 db_url = 'localhost'
 db_port = 27017
 database = 'xiaozhu'
+city_info_collection = 'Cities'
+city_overview_collection = 'Overview'
 room_url_collection = 'room_url'
 room_data_collection = 'room_data'
-sample_collection = 'test'
+test_collection = 'test'

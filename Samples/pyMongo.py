@@ -2,7 +2,7 @@
 # coding:utf-8
 from time import time
 import pymongo
-from Config.config import database, sample_collection
+from Config.config import database, test_collection
 
 client = pymongo.MongoClient('localhost', 27017)
 # database client
@@ -12,7 +12,7 @@ xiaozhu = client[database]
 # xiaozhu.drop_collection(sample_collection)
 # remove collection
 
-collection = xiaozhu[sample_collection]
+collection = xiaozhu[test_collection]
 # create collection
 
 data = {
