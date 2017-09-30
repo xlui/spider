@@ -13,10 +13,16 @@ class MyTestCase(unittest.TestCase):
             'http://bj.xiaozhu.com/fangzi/10290768160.html',
             'http://bj.xiaozhu.com/fangzi/1956386571.html',
         ]
-        self.getRoomData = GetRoomData(self.urls[randint(0, 5)])
+        self.api = GetRoomData(self.urls[randint(0, 4)])
 
     def test_get(self):
-        self.assertTrue(self.getRoomData.get())
+        self.assertTrue(self.api.get())
+
+    def test_get_again(self):
+        self.assertFalse(not self.api.get())
+
+    def test_get_third(self):
+        self.assertGreater(len(self.api.get()), 0)
 
 
 if __name__ == '__main__':

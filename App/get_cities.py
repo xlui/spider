@@ -4,7 +4,7 @@
 import json
 import requests
 from random import randint
-from Config.config import city_json_file, headers, headers_length, proxies, proxies_length
+from Config.config import headers, headers_length, proxies, proxies_length, city_json_file, city_info_collection
 
 
 class GetCities(object):
@@ -67,10 +67,10 @@ class GetCities(object):
         if to_db:
             from App.mongodb import MongoDB
             from contextlib import closing
-            collection = 'Cities'
-            with closing(MongoDB()) as mongodb:
-                mongodb.drop(collection)
-                [mongodb.save(collection, **city) for city in city_list]
+            collection = city_info_collection
+            with closing(MongoDB()) as db:
+                db.drop(collection)
+                [db.save(collection, **city) for city in city_list]
 
     def get(self):
         """get JSON format data from Config/cities.json. If get None, request those data from the official website.

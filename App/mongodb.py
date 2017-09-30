@@ -24,8 +24,11 @@ class MongoDB(object):
 
     def save(self, collection, **kwargs):
         db_collection = self.__database[collection]
-        data = {**kwargs}
-        return db_collection.insert_one(data)
+        return db_collection.insert_one({**kwargs})
+
+    def query(self, collection, **kwargs):
+        db_collection = self.__database[collection]
+        return list(db_collection.find({**kwargs}))
 
     def print(self, collection):
         print('Data in collection `{}` is:'.format(collection))
@@ -47,15 +50,15 @@ if __name__ == '__main__':
     thread_count = 10
     threads = []
     separate = data_count // thread_count
-    collection = 'test'
+    clection = 'test'
 
     total_list = list(range(data_count))
-    save.drop(collection)
+    save.drop(clection)
 
     def save_db(from_, to_):
         sub_list = total_list[from_:to_]
         for i in sub_list:
-            save.save(collection, url_count=i, url='https://www.baidu.com/?page={}'.format(i))
+            save.save(clection, url_count=i, url='https://www.baidu.com/?page={}'.format(i))
 
     # start multithreading
     for index in range(thread_count):
@@ -69,5 +72,5 @@ if __name__ == '__main__':
 
     print("All threads' work Done!")
 
-    save.print(collection)
+    save.print(clection)
     save.close()
