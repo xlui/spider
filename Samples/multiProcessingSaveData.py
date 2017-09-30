@@ -11,7 +11,7 @@ def run(collection, data):
 
 
 @time_func
-def main(collection):
+def main():
     pool_count = 16
     data_count = 10000
     # result:
