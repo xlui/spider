@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>网页</title>
+</head>
+
+<body>
+<script language="javascript" type="text/javascript">
+    function judge() {
+        var choose = document.getElementById("sel").value;
+        var data = {{ data | safe }};
+        var total = {{ total | safe }};
+        switch (choose) {
+            case "title":
+{#                document.getElementById("result").innerText = data['title'];#}
+			show(data['title']);
+                break;
+            case 'address':
+                show(data['address']);
+                break;
+            case 'price':
+                show(data['price']);
+                break;
+            case 'img':
+                show(data['img']);
+                break;
+            case 'host_pic':
+                show(data['host_pic']);
+                break;
+            case 'host_name':
+                show(data['host_name']);
+                break;
+            case 'host_gender':
+                show(data['host_gender']);
+                break;
+            default:
+                alert("Unknown Choosen! Please choose again!");
+        }
+    }
+</script>
+<script language="javascript" type="text/javascript">
+    function show(variable) {
+        var html = "";
+        for (var i = 0; i < variable.length; i++) {
+            html += "<li>" + variable[i] + "</li>" + "<br />";
+        }
+        document.getElementById("result").innerHTML = html;
+    }
+</script>
+<script language="javascript" type="text/javascript">
+    function Hello() {
+        document.getElementById("result").innerHTML = "Hello World!";
+    }
+</script>
+
+<br/><br/>
+<h2><p align="middle">热门城市短租房信息查询</p></h2>
+<hr/>
+<br/>
+<div align="middle">
+    <p>选择查找的项目：</p>
+    <form align="middle">
+        <select id="sel">
+            <option value="title">标题</option>
+            <option value="address">地址</option>
+            <option value="price">价格（每晚）</option>
+            <option value="img">房间照片</option>
+            <option value="host_pic">户主照片</option>
+            <option value="host_name">户主ID</option>
+            <option value="host_gender">户主性别</option>
+        </select>
+        <button type="button" onclick="judge()">确定</button>
+        <br/><br>
+        <div id="result" align="middle"></div>
+    </form>
+</div>
+</body>
+</html>
+

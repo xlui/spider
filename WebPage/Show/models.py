@@ -3,18 +3,18 @@ from mongoengine import connect, Document, StringField
 connect('xiaozhu')
 
 
-class Information(Document):
+class Data(Document):
     _id = StringField()
     title = StringField()
     address = StringField()
     price = StringField()
     img = StringField()
-    hostPic = StringField()
-    hostName = StringField()
-    hostGender = StringField()
+    host_pic = StringField()
+    host_name = StringField()
+    host_gender = StringField()
 
     meta = {'collection': 'room_data'}
 
 
 if __name__ == '__main__':
-    print(Information.objects.count())
+    print(Data.objects.count())
