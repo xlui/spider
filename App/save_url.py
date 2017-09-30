@@ -3,7 +3,7 @@
 from App.get_city_room_url_list import GetCityRoomUrlList
 from App.get_cities import GetCities
 from App.mongodb import MongoDB
-from Config.config import room_url_collection
+from Config.config import room_url_collection, city_overview_collection
 
 
 def get_list_and_save(city_):
@@ -13,15 +13,15 @@ def get_list_and_save(city_):
     # sleep(randint(0, 20))
     room_url_list = get_city_room_url_list.get()
 
-    database = MongoDB()
-
     list_count = len(room_url_list)
 
-    city_name = city_.get('name')
+    city_name = city_.get('city')
+
+    database = MongoDB()
 
     [database.save(room_url_collection, city_name=city_name, room_url=room_url) for room_url in room_url_list]
 
-    database.save(collection='Overview', city_name=city_name, total_urls=list_count)
+    database.save(collection=city_overview_collection, city_name=city_name, total_urls=list_count)
 
     database.close()
 
@@ -39,7 +39,7 @@ if __name__ == '__main__':
     from contextlib import closing
     with closing(MongoDB()) as db:
         db.drop(room_url_collection)
-        db.drop(collection='Overview')
+        db.drop(city_overview_collection)
 
     cities = GetCities().get()
     count = 1
