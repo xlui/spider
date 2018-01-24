@@ -2,7 +2,7 @@ import json
 import unittest
 from random import seed, randint
 from Config.config import city_json_file
-from App.get_city_room_url_list import GetCityRoomUrlList
+from App.fetch_room_urls import RoomUrls
 
 
 def random_url():
@@ -16,7 +16,7 @@ class MyTestCase(unittest.TestCase):
         super().setUp()
         from time import time
         seed(time())
-        self.api = GetCityRoomUrlList(random_url())
+        self.api = RoomUrls(random_url())
 
     def test_get_urls(self):
         urls = self.api.get(3)

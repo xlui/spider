@@ -1,13 +1,13 @@
 import os
 import unittest
-from App.get_cities import GetCities
+from App.fetch_cities import Cities
 from Config.config import city_json_file, db_url, db_port, database, city_info_collection
 
 
 class MyTestCase(unittest.TestCase):
     def setUp(self):
         super().setUp()
-        self.get_cities = GetCities()
+        self.get_cities = Cities()
 
     def test_save(self):
         self.get_cities.save()

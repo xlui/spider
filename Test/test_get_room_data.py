@@ -1,6 +1,6 @@
 import unittest
 from random import randint
-from App.get_room_data import GetRoomData
+from App.fetch_room_data import RoomData
 
 
 class MyTestCase(unittest.TestCase):
@@ -14,7 +14,7 @@ class MyTestCase(unittest.TestCase):
             'http://bj.xiaozhu.com/fangzi/1956386571.html',
         ]
         self.random_url = self.urls[randint(0, 4)]
-        self.api = GetRoomData()
+        self.api = RoomData()
 
     def test_get(self):
         self.assertTrue(self.api.get(self.random_url))
