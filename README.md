@@ -1,13 +1,11 @@
-<p align="center">
-    <h1 align="center">Spider Web Project</h1>
-</p>
+# Spider
 
-从租房网站上或者租房信息（小猪：[http://www.xiaozhu.com](http://www.xiaozhu.com)），保存到本地数据库（MariaDB），并在一个 Django 网页上显示。
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/xlui/spider)
 
-# Schedule and History
+Using a network spider to get short-term housing informations from [xiaozhu](http://www.xiaozhu.com), and save the data into Mongo database. And then, show them through a web page.
 
-- 2018-01-24，重启开发中....
+This project will provide multiply-language versions.
 
-# License
+## Available Versions
 
-[MIT](LICENSE)
+- [python](https://github.com/xlui/Eros/tree/py)
