@@ -16,7 +16,6 @@ class RoomUrls(object):
     def __init__(self, city_url):
         super(RoomUrls, self).__init__()
         self.__page_base_url = city_url + "/search-duanzufang-p{}-0/"
-        self.proxies = {'https': 'https://124.231.64.180:3128'}
 
     def get(self, city, page=13):
         """获得一个城市中所有的房子链接
@@ -28,11 +27,11 @@ class RoomUrls(object):
         room_url_list = []
 
         for index in range(page + 1):
-            sleep(randint(20, 60))
+            sleep(randint(30, 60))
             # avoid too frequently request
             print('Fetching the {index} page...'.format(index=index))
             page_url = self.__page_base_url.format(index)
-            web_data = requests.get(page_url, headers=headers[randint(0, headers_count - 1)], proxies=self.proxies)
+            web_data = requests.get(page_url, headers=headers[randint(0, headers_count - 1)])
             web_data.encoding = 'utf-8'
             soup = BeautifulSoup(web_data.text, 'lxml')
             room_url_tags = soup.select('div.result_btm_con.lodgeunitname')
@@ -54,7 +53,7 @@ class RoomUrls(object):
             print('Dump urls to file')
             json.dump(room_url_list, f)
 
-        from App.mysql import MySQL
+        from app.mysql import MySQL
         from contextlib import closing
 
         with closing(MySQL()) as db:
@@ -64,8 +63,24 @@ class RoomUrls(object):
                 url=room_url.get('url')
             )) for room_url in room_url_list]
 
+    @staticmethod
+    def move(city):
+        with open(url_json_file, 'r', encoding='utf-8') as f:
+            room_urls = json.load(f)
+
+        from app.mysql import MySQL
+        from contextlib import closing
+
+        with closing(MySQL()) as db:
+            db.execute('DELETE FROM urls WHERE city="{}"'.format(city))
+            print('Saving data into database...')
+            [db.execute('insert into `urls`(city, url) values ("{city}", "{url}")'.format(
+                city=room_url.get('city'),
+                url=room_url.get('url')
+            )) for room_url in room_urls]
+
 
 if __name__ == '__main__':
     url = "http://beijing.xiaozhu.com"
     get_city_room_urls = RoomUrls(url)
-    get_city_room_urls.save('北京', 13)
+    get_city_room_urls.move('北京')

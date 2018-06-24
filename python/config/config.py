@@ -2,7 +2,6 @@
 import os
 import json
 
-
 # paths
 dir_name = os.path.dirname(os.path.abspath(__file__))
 data_dir_name = os.path.join(os.path.split(dir_name)[0], 'data')
@@ -11,10 +10,9 @@ city_json_file = os.path.join(data_dir_name, 'cities.json')
 url_json_file = os.path.join(data_dir_name, 'urls.json')
 proxies_json_file = os.path.join(data_dir_name, 'proxies.json')
 
-
 # url
 root_url = 'http://www.xiaozhu.com'
-
+city_url = 'http://jci.xiaozhustatic1.com/e17092601/xzjs?k=Front_Index&httphost=www.xiaozhu.com'
 
 # header
 headers = [
@@ -28,10 +26,9 @@ headers = [
 ]
 headers_count = len(headers)
 
-
-# MySQL
-host = "127.0.0.1"
-port = 33306
+# Database
 database = 'xiaozhu'
 user = 'xiaozhu'
 passwd = 'xiaozhu'
+host = "127.0.0.1"
+port = 3306

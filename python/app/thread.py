@@ -1,7 +1,7 @@
 # todo: Use thread class instead of thread code to avoid to many repeated codes.
 # class method to use multithreading
 import threading
-from Samples.measure_time import time_func
+# from Samples.measure_time import time_func
 
 
 class MyThread(threading.Thread):
@@ -48,7 +48,7 @@ class MyThread(threading.Thread):
         print("All threads's work Done!")
 
 
-@time_func
+# @time_func
 def main():
     from App.mongodb import MongoDB
     from contextlib import closing

@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 from config.config import headers, headers_count
 
 
-class RoomData(object):
+class RoomData:
     """从房子链接中获取房子的详细信息"""
 
     def __init__(self):
