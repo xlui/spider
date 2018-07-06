@@ -1,8 +1,8 @@
 # coding:utf-8
 
+import json
 from random import randint
 from time import sleep
-import json
 
 import requests
 from bs4 import BeautifulSoup

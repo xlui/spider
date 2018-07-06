@@ -25,23 +25,23 @@ class MySQL:
     def close(self):
         self.__connection.close()
 
+    def init_urls(self):
+        self.execute('DROP TABLE IF EXISTS urls')
+        self.execute('CREATE TABLE urls('
+                     '  id INT AUTO_INCREMENT PRIMARY KEY, '
+                     '  city CHAR(20), '
+                     '  url VARCHAR(128)'
+                     ') ENGINE=INNODB CHAR SET=utf8')
 
-def db_init():
-    db = MySQL()
-    db.execute('DROP TABLE IF EXISTS urls')
-    db.execute('CREATE TABLE urls('
-               '  id INT AUTO_INCREMENT PRIMARY KEY, '
-               '  city CHAR(20), '
-               '  url VARCHAR(128)'
-               ') ENGINE=INNODB CHAR SET=utf8')
-    db.execute('DROP TABLE IF EXISTS cities')
-    db.execute('CREATE TABLE cities('
-               '  id INT AUTO_INCREMENT PRIMARY KEY,'
-               '  city_name CHAR(20),'
-               '  city_url VARCHAR(128),'
-               '  page INT'
-               ') ENGINE=INNODB CHAR SET=utf8')
-    db.close()
+    def init_cities(self):
+        self.execute('DROP TABLE IF EXISTS cities')
+        self.execute('CREATE TABLE cities('
+                     '  id INT AUTO_INCREMENT PRIMARY KEY,'
+                     '  city_name CHAR(20),'
+                     '  city_url VARCHAR(128),'
+                     '  p BOOLEAN DEFAULT FALSE,'
+                     '  page INT'
+                     ') ENGINE=INNODB CHAR SET=utf8')
 
 
 if __name__ == '__main__':
@@ -53,4 +53,6 @@ if __name__ == '__main__':
     # er, result = mysql.execute('SELECT * FROM test')
     # print(er, result)
 
-    db_init()
+    db = MySQL()
+    db.init_urls()
+    db.init_cities()
