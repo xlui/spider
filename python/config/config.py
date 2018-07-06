@@ -1,6 +1,5 @@
 # global config here, includes data file paths, urls, user-agents and so on.
 import os
-import json
 
 # paths
 dir_name = os.path.dirname(os.path.abspath(__file__))
@@ -32,3 +31,7 @@ user = 'xiaozhu'
 passwd = 'xiaozhu'
 host = "127.0.0.1"
 port = 3306
+
+mongo_host = 'localhost'
+mongo_port = 27017
+mongo_db = 'xiaozhu'

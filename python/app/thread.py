@@ -5,40 +5,38 @@ import threading
 
 
 class MyThread(threading.Thread):
-    def __init__(self, thread_id, thread_func, **thread_func_args):
+    def __init__(self, thread_id, func, **func_args):
         super(MyThread, self).__init__()
         self.__thread_id = thread_id
-        self.__thread_func = thread_func
-        self.__thread_func_args = thread_func_args
+        self.__func = func
+        self.__func_args = func_args
 
     def run(self):
         print('Start thread', self.__thread_id)
-        self.__thread_func(**self.__thread_func_args)
+        self.__func(**self.__func_args)
         print('Stop thread', self.__thread_id)
 
     @staticmethod
-    def SeparateListMultiThread(thread_count, function_, arg_list):
-        """SeparateListMultiThread static method is used to deal with same works on a long list,
-        separate the long list to stable pieces, and use multithreading to work for the pieces.
-        Params you should provided is the thread count you want, function that do works on the list,
-        and finally, the origin list
+    def separate(count, func, _list):
+        """separate method is used to deal with `same works on a long list`,
+        separate the long list to stable pieces, and use multi-threading to work for each pieces.
 
-        :param thread_count: count of threads you want
-        :param function_: function that do works on the list
-        :param arg_list: the origin list
+        :param count: count of threads you want
+        :param func: function that do works on the list
+        :param _list: the origin list
         :return: None.
         """
-        total_count = len(arg_list)
-        separate = total_count // thread_count
+        total_count = len(_list)
+        separate = total_count // count
         threads = []
 
-        def thread_function(from_, to_):
-            sub_list = arg_list[from_: to_]
+        def thread_function(_from, _to):
+            sub_list = _list[_from: _to]
             for item in sub_list:
-                function_(item, )
+                func(item, )
 
-        for index in range(thread_count):
-            if index == (thread_count - 1):
+        for index in range(count):
+            if index == (count - 1):
                 thread = MyThread(index, thread_function, from_=index * separate, to_=total_count)
             else:
                 thread = MyThread(index, thread_function, from_=index * separate, to_=(index * separate + separate))
@@ -50,7 +48,7 @@ class MyThread(threading.Thread):
 
 # @time_func
 def main():
-    from App.mongodb import MongoDB
+    from app.mongodb import MongoDB
     from contextlib import closing
 
     collection = 'test'
@@ -64,7 +62,7 @@ def main():
         with closing(MongoDB()) as mongodb:
             mongodb.save(collection, **item)
 
-    MyThread.SeparateListMultiThread(8, save_function, url_to_be_saved)
+    MyThread.separate(8, save_function, url_to_be_saved)
     # single thread: 28 seconds
     # 20+ threads: 35 seconds
 
