@@ -17,6 +17,15 @@ func check(err error, msg string) {
 }
 
 func main() {
+	go func() {
+		for {
+			println(1)
+		}
+	}()
+	println("over")
+}
+
+func amain() {
 	root := "http://www.zeroorez.net/beauty"
 	client := &http.Client{}
 

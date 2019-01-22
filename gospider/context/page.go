@@ -8,6 +8,7 @@ import (
 	"gospider/utils"
 	"io"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"path"
 )
@@ -20,9 +21,7 @@ type Page struct {
 }
 
 func (page *Page) Fetch(ctx *Context, client *http.Client) {
-	if ctx.PageState[page.Url] == config.Success {
-		return
-	}
+	log.Println("Fetch: fetching images from page", page.Url)
 
 	request, err := http.NewRequest("GET", page.Url, nil)
 	utils.CheckError(err, "Failed to create new request!")
@@ -42,6 +41,7 @@ func (page *Page) Fetch(ctx *Context, client *http.Client) {
 }
 
 func (page *Page) Parse(ctx *Context) {
+	log.Println("Parse: parsing html tags in page", page.Url)
 	doc, err := goquery.NewDocumentFromReader(bytes.NewReader(*(page.Body)))
 	utils.CheckError(err, "Failed to create query document for page body")
 
@@ -55,9 +55,10 @@ func (page *Page) Parse(ctx *Context) {
 		if selection.Text() == config.PicMark {
 			// mark image as ready for download
 			ctx.ImageState[href] = config.Ready
-			filename := fmt.Sprint(config.Storage, page.Number, "/", count, path.Ext(href))
+			folder := fmt.Sprint(config.Storage, page.Number, "/")
+			filename := fmt.Sprint(folder, count, path.Ext(href))
 			count++
-			ctx.ImageChannel <- &Image{Url: href, File: filename}
+			ctx.ImageChannel <- &Image{Url: href, File: filename, Folder: folder}
 		}
 	})
 }
