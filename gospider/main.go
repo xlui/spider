@@ -3,8 +3,6 @@ package main
 import (
 	"gospider/config"
 	"gospider/context"
-	"gospider/image"
-	"gospider/page"
 	"log"
 	"net/http"
 	"os"
@@ -18,12 +16,18 @@ func initialize() (ctx *context.Context, client *http.Client) {
 
 	return &context.Context{
 		PageState:    map[string]int{},
-		PageChannel:  make(chan *page.Page, config.ChannelSize),
-		ImageChannel: make(chan *image.Image, config.ChannelSize),
+		PageChannel:  make(chan *context.Page, config.ChannelSize),
+		ImageChannel: make(chan *context.Image, config.ChannelSize),
 	}, &http.Client{}
 }
 
-func main() {
+func check(err error, msg string) {
+	if err != nil {
+		log.Fatalln(msg, err.Error())
+	}
+}
+
+func run() {
 	ctx, client := initialize()
 
 	for i := 0; i < config.Fetchers; i++ {
@@ -50,5 +54,5 @@ func main() {
 		}()
 	}
 
-	ctx.PageChannel <- &page.Page{Url: config.Root, Parsed: true}
+	ctx.PageChannel <- &context.Page{Url: config.Root, Parsed: true}
 }
