@@ -21,12 +21,6 @@ func initialize() (ctx *context.Context, client *http.Client) {
 	}, &http.Client{}
 }
 
-func check(err error, msg string) {
-	if err != nil {
-		log.Fatalln(msg, err.Error())
-	}
-}
-
 func run() {
 	ctx, client := initialize()
 
@@ -34,14 +28,6 @@ func run() {
 		go func() {
 			for pg := range ctx.PageChannel {
 				pg.Fetch(ctx, client)
-			}
-		}()
-	}
-
-	for i := 0; i < config.Downloaders; i++ {
-		go func() {
-			for img := range ctx.ImageChannel {
-				img.Download(ctx, client)
 			}
 		}()
 	}
@@ -54,5 +40,13 @@ func run() {
 		}()
 	}
 
-	ctx.PageChannel <- &context.Page{Url: config.Root, Parsed: true}
+	for i := 0; i < config.Downloaders; i++ {
+		go func() {
+			for img := range ctx.ImageChannel {
+				img.Download(ctx, client)
+			}
+		}()
+	}
+
+	ctx.PageChannel <- &context.Page{Url: config.Root, Number: 1, Parsed: true}
 }

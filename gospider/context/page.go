@@ -1,15 +1,20 @@
 package context
 
 import (
+	"bytes"
+	"fmt"
+	"github.com/PuerkitoBio/goquery"
 	"gospider/config"
+	"gospider/utils"
 	"io"
 	"io/ioutil"
-	"log"
 	"net/http"
+	"path"
 )
 
 type Page struct {
 	Url    string
+	Number int
 	Body   *[]byte
 	Parsed bool
 }
@@ -20,27 +25,39 @@ func (page *Page) Fetch(ctx *Context, client *http.Client) {
 	}
 
 	request, err := http.NewRequest("GET", page.Url, nil)
-	if err != nil {
-		log.Fatalln("Failed to create new request!", err.Error())
-	}
+	utils.CheckError(err, "Failed to create new request!")
 
 	response, err := client.Do(request)
-	if err != nil {
-		log.Fatalln("Failed  to request the url!", err.Error())
-	}
+	utils.CheckError(err, "Failed to request the url!")
 	//noinspection GoUnhandledErrorResult
 	defer response.Body.Close()
 
 	reader := response.Body.(io.Reader)
 	body, err := ioutil.ReadAll(reader)
-	if err != nil {
-		log.Fatalln("Failed to read from response body!", err.Error())
-	}
+	utils.CheckError(err, "Failed to read from response body!")
+
 	page.Body = &body
 	ctx.PageState[page.Url] = config.Success
 	ctx.ParseChannel <- page
 }
 
 func (page *Page) Parse(ctx *Context) {
+	doc, err := goquery.NewDocumentFromReader(bytes.NewReader(*(page.Body)))
+	utils.CheckError(err, "Failed to create query document for page body")
 
+	count := 1
+	// find element through css selector
+	doc.Find(config.PicSelector).Each(func(i int, selection *goquery.Selection) {
+		href, exist := selection.Attr("href")
+		if !exist || href == "" {
+			return
+		}
+		if selection.Text() == config.PicMark {
+			// mark image as ready for download
+			ctx.ImageState[href] = config.Ready
+			filename := fmt.Sprint(config.Storage, page.Number, "/", count, path.Ext(href))
+			count++
+			ctx.ImageChannel <- &Image{Url: href, File: filename}
+		}
+	})
 }
