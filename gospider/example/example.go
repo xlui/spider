@@ -82,7 +82,7 @@ func main() {
 		absPath.Fragment = ""
 		absUrl := absPath.String()
 		// 文件名规则
-		filename := path.Base(pageUrl.String()) + "_" + strconv.Itoa(i) + path.Ext(imgUrl)
+		filename := "tmp/" + path.Base(pageUrl.String()) + "_" + strconv.Itoa(i) + path.Ext(imgUrl)
 		log.Println("The", i, "image's absolute url is", absUrl)
 		log.Println("Filename to save the image:", filename)
 
@@ -108,7 +108,7 @@ func main() {
 			log.Fatalln("Failed to copy from response body!", err.Error())
 		}
 
-		err = imgWriter.Flush();
+		err = imgWriter.Flush()
 		check(err, "Failed to flush!")
 
 		log.Println("Successfully fetch a image!")
