@@ -17,7 +17,7 @@ func initialize() (ctx *context.Context, client *http.Client) {
 	}
 
 	return &context.Context{
-		PageState:    map[string]string{},
+		PageState:    map[string]int{},
 		PageChannel:  make(chan *page.Page, config.ChannelSize),
 		ImageChannel: make(chan *image.Image, config.ChannelSize),
 	}, &http.Client{}

@@ -10,3 +10,9 @@ const (
 	Fetchers    = 1
 	Downloaders = 10
 )
+
+const (
+	Ready = iota
+	Success
+	Failure
+)

@@ -6,7 +6,7 @@ import (
 )
 
 type Context struct {
-	PageState    map[string]string
+	PageState    map[string]int
 	PageChannel  chan *page.Page
 	ParseChannel chan *page.Page
 	ImageChannel chan *image.Image
