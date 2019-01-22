@@ -11,6 +11,10 @@ type Page struct {
 	Parsed bool
 }
 
-func (page *Page) fetch(ctx *context.Context, client *http.Client) {
+func (page *Page) Fetch(ctx *context.Context, client *http.Client) {
+
+}
+
+func (page *Page) Parse(ctx *context.Context) {
 
 }
