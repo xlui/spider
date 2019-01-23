@@ -5,7 +5,7 @@ import "time"
 const (
 	Root = "http://www.zeroorez.net/beauty"
 	//Root        = "https://xlui.me"
-	PageCount   = 185
+	PageCount   = 10
 	PicSelector = ".post > .text > .post-content > a"
 	PicMark     = "[查看原图]"
 	Storage     = "./Beauties/"
@@ -15,7 +15,7 @@ const (
 	Interval    = 15 * time.Second
 	ChannelSize = 10
 	Fetchers    = 1
-	Downloaders = 10
+	Downloaders = 20
 	BufSize     = 10 * 1024
 )
 

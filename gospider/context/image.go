@@ -17,6 +17,7 @@ type Image struct {
 }
 
 func (image *Image) Download(ctx *Context, client *http.Client) {
+	log.Println("Image: Trying to download the image", image.Url)
 	req, err := http.NewRequest("GET", image.Url, nil)
 	utils.CheckError(err, "Image[1]: failed to create request!")
 
@@ -33,6 +34,9 @@ func (image *Image) Download(ctx *Context, client *http.Client) {
 	utils.CheckError(err, "Image[5]: failed to copy image from response body!")
 
 	_ = writer.Flush()
+	ctx.ImageLock.Lock()
 	ctx.ImageState[image.Url] = config.Success
-	log.Println("Image: Successfully fetch a image!", image.Url)
+	ctx.ImageLock.Unlock()
+	ctx.ImageCount <- 1
+	log.Println("Image: Successfully download a image!", image.Url)
 }

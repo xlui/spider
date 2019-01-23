@@ -36,7 +36,9 @@ func (page *Page) Fetch(ctx *Context, client *http.Client) {
 	utils.CheckError(err, "Failed to read from response body!")
 
 	page.Body = &body
+	ctx.PageLock.Lock()
 	ctx.PageState[page.Url] = config.Success
+	ctx.PageLock.Unlock()
 	ctx.ParseChannel <- page
 }
 
@@ -54,7 +56,9 @@ func (page *Page) Parse(ctx *Context) {
 		}
 		if selection.Text() == config.PicMark {
 			// mark image as ready for download
+			ctx.ImageLock.Lock()
 			ctx.ImageState[href] = config.Ready
+			ctx.ImageLock.Unlock()
 			folder := fmt.Sprint(config.Storage, page.Number, "/")
 			filename := fmt.Sprint(folder, count, path.Ext(href))
 			count++
